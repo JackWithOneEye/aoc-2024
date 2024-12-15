@@ -11,8 +11,10 @@ const Day6 = @import("day6.zig");
 const Day7 = @import("day7.zig");
 const Day8 = @import("day8.zig");
 const Day9 = @import("day9.zig");
+const Day10 = @import("day10.zig");
+const Day11 = @import("day11.zig");
 
-var days = [_]Problem{ Day1.build(), Day2.build(), Day3.build(), Day4.build(), Day5.build(), Day6.build(), Day7.build(), Day8.build(), Day9.build() };
+var days = [_]Problem{ Day1.build(), Day2.build(), Day3.build(), Day4.build(), Day5.build(), Day6.build(), Day7.build(), Day8.build(), Day9.build(), Day10.build(), Day11.build() };
 
 fn on_request(r: zap.Request) void {
     if (r.path) |the_path| {
