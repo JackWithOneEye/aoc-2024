@@ -22,6 +22,25 @@ pub const Coordinate = struct {
     }
 };
 
+pub const CoordinateSet = struct {
+    map: std.AutoHashMap(Coordinate, void),
+
+    pub fn init(allocator: std.mem.Allocator) CoordinateSet {
+        return .{ .map = std.AutoHashMap(Coordinate, void).init(allocator) };
+    }
+    pub fn deinit(self: *CoordinateSet) void {
+        self.map.deinit();
+    }
+
+    pub fn add(self: *CoordinateSet, value: Coordinate) std.mem.Allocator.Error!void {
+        return self.map.put(value, {});
+    }
+
+    pub fn has(self: *CoordinateSet, value: Coordinate) bool {
+        return self.map.contains(value);
+    }
+};
+
 pub const Direction = enum {
     up,
     right,
@@ -40,4 +59,34 @@ pub const Direction = enum {
 
 pub fn lineIterator(input: []const u8) std.mem.SplitIterator(u8, .scalar) {
     return std.mem.splitScalar(u8, input, '\n');
+}
+
+pub fn Queue(comptime T: type) type {
+    return struct {
+        const Self = @This();
+        const DLL = std.DoublyLinkedList(T);
+
+        //alloc: std.mem.Allocator,
+        arena: std.heap.ArenaAllocator,
+        dll: DLL,
+
+        pub fn init(alloc: std.mem.Allocator) Self {
+            const arena = std.heap.ArenaAllocator.init(alloc);
+            return .{ .arena = arena, .dll = DLL{} };
+        }
+
+        pub fn deinit(self: *Self) void {
+            self.arena.deinit();
+        }
+
+        pub fn push(self: *Self, item: T) std.mem.Allocator.Error!void {
+            var node = try self.arena.allocator().create(DLL.Node);
+            node.data = item;
+            self.dll.append(node);
+        }
+
+        pub fn remove(self: *Self) ?T {
+            return if (self.dll.popFirst()) |node| node.data else null;
+        }
+    };
 }

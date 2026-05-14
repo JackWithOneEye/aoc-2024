@@ -2,19 +2,22 @@ const std = @import("std");
 const zap = @import("zap");
 
 const Problem = @import("problem.zig");
-const Day1 = @import("day1.zig");
-const Day2 = @import("day2.zig");
-const Day3 = @import("day3.zig");
-const Day4 = @import("day4.zig");
-const Day5 = @import("day5.zig");
-const Day6 = @import("day6.zig");
-const Day7 = @import("day7.zig");
-const Day8 = @import("day8.zig");
-const Day9 = @import("day9.zig");
-const Day10 = @import("day10.zig");
-const Day11 = @import("day11.zig");
 
-var days = [_]Problem{ Day1.build(), Day2.build(), Day3.build(), Day4.build(), Day5.build(), Day6.build(), Day7.build(), Day8.build(), Day9.build(), Day10.build(), Day11.build() };
+var days = [_]Problem{
+    @import("day1.zig").build(),
+    @import("day2.zig").build(),
+    @import("day3.zig").build(),
+    @import("day4.zig").build(),
+    @import("day5.zig").build(),
+    @import("day6.zig").build(),
+    @import("day7.zig").build(),
+    @import("day8.zig").build(),
+    @import("day9.zig").build(),
+    @import("day10.zig").build(),
+    @import("day11.zig").build(),
+    @import("day12.zig").build(),
+    @import("day13.zig").build(),
+};
 
 fn on_request(r: zap.Request) void {
     if (r.path) |the_path| {

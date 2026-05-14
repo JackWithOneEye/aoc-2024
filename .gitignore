@@ -27,3 +27,5 @@ go.work.sum
 tmp
 .zig-cache
 zig-out
+
+.DS_Store

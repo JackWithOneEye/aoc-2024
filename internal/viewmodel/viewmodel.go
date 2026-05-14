@@ -94,7 +94,7 @@ func NewViewModel(client *http.Client) ViewModel {
 
 	return ViewModel{
 		client: client,
-		days:   11,
+		days:   13,
 		page:   0,
 		ta:     ta,
 		vp:     vp,
